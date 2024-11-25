@@ -9,7 +9,6 @@ resource "aws_eks_cluster" "fiap_cluster" {
 
   vpc_config {
     subnet_ids = ["subnet-008a55aa4bae0111c", "subnet-091eb123668306de5"]
-    security_group_ids = ["sg-04a820a55408264f8"]
   }
 }
 
