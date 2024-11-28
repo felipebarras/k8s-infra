@@ -14,7 +14,7 @@ resource "aws_eks_cluster" "fiap_cluster" {
 
 # Node group
 resource "aws_eks_node_group" "fiap_node_group" {
-  cluster_name = "node_group_fiap_cluster_name"
+  cluster_name = aws_eks_cluster.fiap_cluster.name
   node_group_name = "fiap-tech-nodes"
   node_role_arn = "arn:aws:iam::180294201352:role/eks-node-role"
   subnet_ids = ["subnet-008a55aa4bae0111c", "subnet-091eb123668306de5"]
