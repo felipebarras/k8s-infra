@@ -7,6 +7,7 @@ variable "aws_region" {
 variable "kubernetes_cluster_name" {
     description = "Name of the Kubernetes cluster"
     type = string
+    default = "fiap-tech-challenge"
 }
 
 variable "db_name" {

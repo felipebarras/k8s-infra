@@ -4,7 +4,7 @@ provider "aws" {
 
 # cluster EKS
 resource "aws_eks_cluster" "fiap_cluster" {
-  name = "fiap-tech-challenge"
+  name = var.kubernetes_cluster_name
   role_arn = var.eks_role_arn
 
   vpc_config {

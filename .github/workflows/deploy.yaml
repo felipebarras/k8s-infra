@@ -10,24 +10,39 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      # Checkout the code
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Setup Kubectl
-        uses: azure/setup-kubectl@v3
-        with:
-          version: 'v1.27.1'
+      # Install Kubectl (generic installation method)
+      - name: Install Kubectl
+        run: |
+          curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
+          chmod +x kubectl
+          sudo mv kubectl /usr/local/bin/
 
-      - name: Apply Terraform
+      # Set up Terraform
+      - name: Setup Terraform
         uses: hashicorp/setup-terraform@v2
         with:
           terraform_version: 1.5.6
 
+      # Validate Terraform configuration
+      - name: Terraform Validate
+        run: terraform validate
+
+      # Format check for Terraform files
+      - name: Terraform Format Check
+        run: terraform fmt -check
+
+      # Terraform Init
       - name: Terraform Init
         run: terraform init
 
+      # Terraform Plan
       - name: Terraform Plan
-        run: terraform plan
+        run: terraform plan -var="environment=main"
 
+      # Terraform Apply
       - name: Terraform Apply
         run: terraform apply -auto-approve
