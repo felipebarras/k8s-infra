@@ -1,29 +1,29 @@
 provider "aws" {
-  region = "us-east-1"
+  region = var.aws_region
 }
 
 # cluster EKS
 resource "aws_eks_cluster" "fiap_cluster" {
   name = "fiap-tech-challenge"
-  role_arn = "arn:aws:iam::180294201352:role/eks-service-role"
+  role_arn = var.eks_role_arn
 
   vpc_config {
-    subnet_ids = ["subnet-008a55aa4bae0111c", "subnet-091eb123668306de5"]
+    subnet_ids = var.subnet_ids
   }
 }
 
 # Node group
 resource "aws_eks_node_group" "fiap_node_group" {
   cluster_name = aws_eks_cluster.fiap_cluster.name
-  node_group_name = "fiap-tech-nodes"
-  node_role_arn = "arn:aws:iam::180294201352:role/eks-node-role"
-  subnet_ids = ["subnet-008a55aa4bae0111c", "subnet-091eb123668306de5"]
+  node_group_name = var.node_group_name
+  node_role_arn = var.node_role_arn
+  subnet_ids = var.subnet_ids
 
   scaling_config {
-    desired_size = 2
-    max_size     = 3
-    min_size     = 1
+    desired_size = var.desired_size
+    max_size     = var.max_size
+    min_size     = var.min_size
   }
 
-  instance_types = ["t3.medium"]
+  instance_types = var.instance_types
 }
