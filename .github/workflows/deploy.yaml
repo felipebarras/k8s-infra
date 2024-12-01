@@ -41,7 +41,7 @@ jobs:
 
       # Terraform Plan
       - name: Terraform Plan
-        run: terraform plan -var="environment=main"
+        run: terraform plan
 
       # Terraform Apply
       - name: Terraform Apply

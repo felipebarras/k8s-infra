@@ -15,11 +15,6 @@ variable "db_name" {
     type = string
 }
 
-variable "environment" {    
-    description = "Environment(dev, staging, prod)"
-    type = string
-}
-
 variable "eks_role_arn" {
     description = "ARN of the IAM role for EKS nodes"
     type = string
