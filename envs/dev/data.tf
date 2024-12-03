@@ -7,7 +7,7 @@ data "aws_iam_role" "eks-node-role" {
 }
 
 data "aws_vpc" "vpc" {
-  cidr_blocks = var.cidrBlocks
+  cidr_block = var.cidrBlocks
 }
 
 data "aws_subnets" "subnets" {
@@ -19,4 +19,5 @@ data "aws_subnets" "subnets" {
 
 data "aws_subnet" "subnet" {
   for_each = toset(data.aws_subnets.subnets.ids)
+  id = each.value
 }
