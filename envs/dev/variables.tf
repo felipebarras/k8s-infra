@@ -1,7 +1,5 @@
 variable "awsRegion" {
-  description = "AWS region"
-  type        = string
-  default     = "us-east-1"
+  default = "us-east-1"
 }
 
 variable "appName" {
@@ -17,20 +15,13 @@ variable "node_group_name" {
 }
 
 variable "policyArn" {
-  default = ""
+  default = "arn:aws:eks::aws:cluster-access-policy/AmazonEKSClusterAdminPolicy"
 }
 
 variable "instanceType" {
   default = "t3.medium"
 }
 
-variable "principalArn" {
-  default = "arn:aws:iam::180294201352:role/eks-service-role"
+variable "cidrBlocks" {
+  default = "172.31.0.0/16"
 }
-
-variable "subnet_ids" {
-  description = "List of subnet IDs for the EKS cluster"
-  type        = list(string)
-  default     = ["subnet-008a55aa4bae0111c", "subnet-091eb123668306de5"]
-}
-
