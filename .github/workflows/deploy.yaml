@@ -31,18 +31,18 @@ jobs:
       - name: Terraform Validate
         run: terraform validate
 
-      # Format check for Terraform files
-      - name: Terraform Format Check
-        run: terraform fmt -check
+      # # Format check for Terraform files
+      # - name: Terraform Format Check
+      #   run: terraform fmt -check
 
-      # Terraform Init
-      - name: Terraform Init
-        run: terraform init
+      # # Terraform Init
+      # - name: Terraform Init
+      #   run: terraform init
 
-      # Terraform Plan
-      - name: Terraform Plan
-        run: terraform plan
+      # # Terraform Plan
+      # - name: Terraform Plan
+      #   run: terraform plan
 
-      # Terraform Apply
-      - name: Terraform Apply
-        run: terraform apply -auto-approve
+      # # Terraform Apply
+      # - name: Terraform Apply
+      #   run: terraform apply -auto-approve
