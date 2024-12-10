@@ -54,14 +54,14 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: us-east-1
 
-      # - name: Update Kube Config
-      #   # run: aws eks update-kubeconfig --name ${{ env.CLUSTER_NAME }} --region ${{ env.REGION_DEFAULT }}            ADICIONAR ENVs
-      #   run: aws eks update-kubeconfig --name EKS-fiap-tech-challenge --region us-east-1
+      - name: Update Kube Config
+        # run: aws eks update-kubeconfig --name ${{ env.CLUSTER_NAME }} --region ${{ env.REGION_DEFAULT }}            ADICIONAR ENVs
+        run: aws eks update-kubeconfig --name EKS-fiap-tech-challenge --region us-east-1
 
-      # - name: Deploy EKS Without ALB
-      #   run: |
-      #     kubectl apply -f envs/dev/k8s/00-ns-lanchonete.yaml
-      #     kubectl apply -f envs/dev/k8s/10-secret-lanchonete.yaml
-      #     kubectl apply -f envs/dev/k8s/11-app-lanchonete-configmap.yaml
-      #     kubectl apply -f envs/dev/k8s/21-app-lanchonete-service.yaml
-      #     kubectl apply -f envs/dev/k8s/41-app-lanchonete-deployment.yaml
+      - name: Deploy EKS Without ALB
+        run: |
+          kubectl apply -f envs/dev/k8s/00-ns-lanchonete.yaml
+          kubectl apply -f envs/dev/k8s/10-secret-lanchonete.yaml
+          kubectl apply -f envs/dev/k8s/11-app-lanchonete-configmap.yaml
+          kubectl apply -f envs/dev/k8s/21-app-lanchonete-service.yaml
+          kubectl apply -f envs/dev/k8s/41-app-lanchonete-deployment.yaml
