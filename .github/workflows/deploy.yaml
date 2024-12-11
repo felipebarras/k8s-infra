@@ -14,6 +14,13 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-east-1
+
       # Install Kubectl (generic installation method)
       - name: Install Kubectl
         run: |
@@ -29,15 +36,21 @@ jobs:
 
       # Terraform Init
       - name: Terraform Init
-        run: terraform init -reconfigure
+        run: |
+          cd envs/dev
+          terraform init -reconfigure
 
       # Validate Terraform configuration
       - name: Terraform Validate
-        run: terraform validate
+        run: |
+          cd envs/dev
+          terraform validate
 
       # Format check for Terraform files
       - name: Terraform Format Check
-        run: terraform fmt -check
+        run: |
+          cd envs/dev
+          terraform fmt -check
 
       # Terraform Plan
       - name: Terraform Plan
@@ -47,14 +60,9 @@ jobs:
 
       # Terraform Apply
       - name: Terraform Apply
-        run: terraform apply -auto-approve
-
-      - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@v1
-        with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: us-east-1
+        run: |
+          cd envs/dev
+          terraform apply -auto-approve
 
       - name: Update Kube Config
         # run: aws eks update-kubeconfig --name ${{ env.CLUSTER_NAME }} --region ${{ env.REGION_DEFAULT }}            ADICIONAR ENVs
