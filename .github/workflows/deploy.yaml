@@ -73,8 +73,8 @@ jobs:
           echo "Kubeconfig location: $KUBECONFIG"
           cat ~/.kube/config
 
-      - name: Test Kubectl Connection
-        run: kubectl get nodes
+      # - name: Test Kubectl Connection
+      #   run: kubectl get nodes
 
       - name: Deploy EKS Without ALB
         run: |
