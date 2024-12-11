@@ -7,7 +7,10 @@ data "aws_iam_role" "eks-node-role" {
 }
 
 data "aws_vpc" "vpc" {
-  cidr_block = var.cidrBlocks
+  filter {
+    name   = "cidr-block"
+    values = [var.cidrBlocks]
+  }
 }
 
 data "aws_subnets" "subnets" {
