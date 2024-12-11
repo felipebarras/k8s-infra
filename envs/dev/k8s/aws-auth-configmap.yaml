@@ -4,8 +4,8 @@ metadata:
   name: aws-auth
   namespace: kube-system
 data:
-  mapUsers: |
-    - rolearn: arn:aws:iam::180294201352:root
-      username: eks-service-role
+  mapRoles: |
+    - rolearn: arn:aws:iam::180294201352:role/eks-service-role
+      username: eks-admin
       groups:
         - system:masters
