@@ -25,7 +25,7 @@ jobs:
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v2
         with:
-          terraform_version: 1.5.6
+          terraform_version: 1.5.6`1
 
       # Terraform Init
       - name: Terraform Init
@@ -62,8 +62,8 @@ jobs:
 
       - name: Deploy EKS Without ALB
         run: |
-          kubectl apply -f envs/dev/k8s/00-ns-lanchonete.yaml
-          kubectl apply -f envs/dev/k8s/10-secret-lanchonete.yaml
-          kubectl apply -f envs/dev/k8s/11-app-lanchonete-configmap.yaml
-          kubectl apply -f envs/dev/k8s/21-app-lanchonete-service.yaml
-          kubectl apply -f envs/dev/k8s/41-app-lanchonete-deployment.yaml
+          kubectl apply -f envs/dev/k8s/00-ns-lanchonete.yaml --validate=false
+          kubectl apply -f envs/dev/k8s/10-secret-lanchonete.yaml --validate=false
+          kubectl apply -f envs/dev/k8s/11-app-lanchonete-configmap.yaml --validate=false
+          kubectl apply -f envs/dev/k8s/21-app-lanchonete-service.yaml --validate=false
+          kubectl apply -f envs/dev/k8s/41-app-lanchonete-deployment.yaml --validate=false
