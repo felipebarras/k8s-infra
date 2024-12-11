@@ -27,6 +27,10 @@ jobs:
         with:
           terraform_version: 1.5.6
 
+      # Terraform Init
+      - name: Terraform Init
+        run: terraform init -reconfigure
+
       # Validate Terraform configuration
       - name: Terraform Validate
         run: terraform validate
@@ -34,10 +38,6 @@ jobs:
       # Format check for Terraform files
       - name: Terraform Format Check
         run: terraform fmt -check
-
-      # Terraform Init
-      - name: Terraform Init
-        run: terraform init -reconfigure
 
       # Terraform Plan
       - name: Terraform Plan
