@@ -15,7 +15,7 @@ resource "aws_iam_access_key" "eks_user_access_key" {
 }
 
 # access key para o Github Secrets
-output "eks_user_access_key_id {
+output "eks_user_access_key_id" {
     value = aws_iam_access_key.eks_user_access_key.id
     sensitive = true
 }
