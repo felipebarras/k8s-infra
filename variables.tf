@@ -14,10 +14,6 @@ variable "node_group_name" {
   default = "fiap-tech-nodes"
 }
 
-variable "policyArn" {
-  default = "arn:aws:eks::aws:cluster-access-policy/AmazonEKSClusterAdminPolicy"
-}
-
 variable "instanceType" {
   default = "t3.medium"
 }
