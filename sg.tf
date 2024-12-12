@@ -1,5 +1,5 @@
 resource "aws_security_group" "sg" {
-  name   = "SG-${var.appName}-2"
+  name   = "SG-${var.appName}"
   vpc_id = data.aws_vpc.vpc.id
 
   ingress {
