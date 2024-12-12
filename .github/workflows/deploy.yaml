@@ -36,10 +36,16 @@ jobs:
           terraform_version: 1.5.6`1
 
       # Terraform Execution
-      - name: Terraform Execution
+      - name: Terraform Init
         run: |
-          terraform init
+          terraform init -reconfigure
+
+      - name: Terraform Plan
+        run: |
           terraform plan
+
+      - name: Terraform Apply
+        run: |
           terraform apply -auto-approve
 
       - name: Update Kube Config
