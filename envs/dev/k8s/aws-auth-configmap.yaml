@@ -3,36 +3,14 @@ kind: ConfigMap
 metadata:
   name: aws-auth
   namespace: kube-system
-rules:
-  - apiGroups:
-      - ''
-    resources:
-      - nodes
-      - namespaces
-      - pods
-    verbs:
-      - get
-      - list
-  - apiGroups:
-      - apps
-    resources:
-      - deployments
-      - daemonsets
-      - statefulsets
-      - replicasets
-    verbs:
-      - get
-      - list
-  - apiGroups:
-      - batch
-    resources:
-      - jobs
-    verbs:
-      - get
-      - list
 data:
   mapRoles: |
     - rolearn: arn:aws:iam::180294201352:role/eks-service-role
       username: eks-service-role
+      groups:
+        - system:masters
+  mapUsers: |
+    - userarn: arn:aws:iam::180294201352:user/github-actions-k8s-infra
+      username: eks-admin
       groups:
         - system:masters

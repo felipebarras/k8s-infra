@@ -65,7 +65,6 @@ jobs:
           terraform apply -auto-approve
 
       - name: Update Kube Config
-        # run: aws eks update-kubeconfig --name ${{ env.CLUSTER_NAME }} --region ${{ env.REGION_DEFAULT }}            ADICIONAR ENVs
         run: aws eks update-kubeconfig --name EKS-fiap-tech-challenge --region us-east-1
 
       - name: Debug Kubeconfig
