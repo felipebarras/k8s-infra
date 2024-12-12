@@ -12,7 +12,8 @@ resource "aws_iam_policy" "eks_policy" {
         Action   = [
           "eks:DescribeCluster",
           "eks:ListClusters",
-          "eks:AccessKubernetesApi"
+          "eks:AccessKubernetesApi",
+          "iam:GetPolicy"
         ],
         Effect   = "Allow",
         Resource = "*"
