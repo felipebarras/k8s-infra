@@ -15,6 +15,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
+      # Iniciando com credenciais adicionadas anteriormente
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
@@ -44,17 +45,46 @@ jobs:
         run: |
           terraform plan
 
+        # Extraindo os outputs após o apply
       - name: Terraform Apply
         run: |
           terraform apply -auto-approve
+          terraform output -json > terraform_outputs.json
+
+      # Coletando informação do output
+      - name: Extract Terraform Outputs
+        id: extract_outputs
+        run: |
+          export ACCESS_KEY_ID=$(jq -r '.eks_user_access_key_id.value' terraform_outputs.json)
+          export SECRET_ACCESS_KEY=$(jq -r '.eks_user_secret_access_key.value' terraform_outputs.json)
+          echo "ACCESS_KEY_ID=$ACCESS_KEY_ID" >> $GITHUB_ENV
+          echo "SECRET_ACCESS_KEY=$SECRET_ACCESS_KEY" >> $GITHUB_ENV
+
+      # Atualizando GitHub Secrets
+      - name: Update GitHub Secrets
+        run: |
+          GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }}
+          REPO=${{ github.repository }}
+          curl -X PUT -H "Authorization: token $GITHUB_TOKEN" \
+            -H "Content-Type: application/json" \
+            -d '{"encrypted_value":"'$ACCESS_KEY_ID'"}' \
+            https://api.github.com/repos/$REPO/actions/secrets/AWS_ACCESS_KEY_ID
+
+          curl -X PUT -H "Authorization: token $GITHUB_TOKEN" \
+            -H "Content-Type: application/json" \
+            -d '{"encrypted_value":"'$SECRET_ACCESS_KEY'"}' \
+            https://api.github.com/repos/$REPO/actions/secrets/AWS_SECRET_ACCESS_KEY
+
+      # Reconfigurando AWS Credentials com as novas credenciais
+      - name: Configure AWS credentials (Updated)
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-east-1
 
       - name: Update Kube Config
         run: aws eks update-kubeconfig --name EKS-fiap-tech-challenge --region us-east-1
-
-      # - name: Debug Kubeconfig
-      #   run: |
-      #     echo "Kubeconfig location: $KUBECONFIG"
-      #     cat ~/.kube/config
 
       - name: Deploy Application
         run: |
