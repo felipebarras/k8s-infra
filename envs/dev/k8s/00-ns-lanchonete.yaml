@@ -2,4 +2,7 @@ apiVersion: v1
 kind: Namespace
 metadata:
   name: ns-lanchonete
-  
+  tag: ns-lanchonete-tag
+  labels:
+    app: ns-lanchonete
+    tag: ns-lanchonete-tag

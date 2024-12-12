@@ -6,6 +6,12 @@ metadata:
 data:
   mapRoles: |
     - rolearn: arn:aws:iam::180294201352:role/eks-service-role
-      username: eks-admin
+      username: system:node:{{EC2PrivateDNSName}}
+      groups:
+        - system:bootstrappers
+        - system:nodes
+  mapUsers: |
+    - userarn: arn:aws:iam::180294201352:user/github-actions-k8s-infra
+      username: github-actions-k8s-infra
       groups:
         - system:masters
