@@ -3,7 +3,7 @@ terraform {
     bucket = "postech-backend-tf"
     key    = "s3/post-8soat/terraform.tfstate"
     region = "us-east-1"
-    access_key = "AKIAST6S7GAEHFYY4EPI"
-    secret_key = "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"
+    access_key = var.aws_access_key_id
+    secret_key = var.aws_secret_access_key
   }
 }
